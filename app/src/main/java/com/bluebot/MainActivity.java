@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     final String FORWARD = "f";
     final String BACKWARD = "b";
-    final String LEFT = "l";
-    final String RIGHT = "r";
+    final String LEFT = "r";
+    final String RIGHT = "l";
     final String STOP = "s";
-    final String LEFTBACK = "L";
-    final String RIGHTBACK = "R";
+    final String LEFTBACK = "R";
+    final String RIGHTBACK = "L";
 
     boolean forward = false;
     boolean backward = false;
