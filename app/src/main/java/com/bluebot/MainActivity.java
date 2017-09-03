@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -66,10 +67,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             bluetooth.enable();
         } else {
             if (!bluetooth.isServiceAvailable()) {
-                bluetooth.setupService();
+                initialize();
                 bluetooth.startService(BluetoothState.DEVICE_OTHER);
             }
         }
+    }
+
+    private void initialize() {
+        bluetooth.setupService();
+        bluetooth.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
+            @Override
+            public void onDataReceived(byte[] data, String message) {
+                Log.d(MainActivity.this.getClass().getName(),"BLuetooth data received: " + new String(data));
+            }
+        });
     }
 
     @Override
@@ -82,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
             if (resultCode == Activity.RESULT_OK) {
-                bluetooth.setupService();
+                initialize();
             } else {
                 Toast.makeText(getApplicationContext(), "Bluetooth was not enabled.", Toast.LENGTH_SHORT).show();
                 finish();

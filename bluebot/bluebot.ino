@@ -3,6 +3,8 @@
 //Clifton C. Craig
 
 #include <Servo.h> //servo library
+#define send
+
 Servo myservo; // create servo object to control servo
 char getstr;
 int AUTONOMOUS = 1;
@@ -20,7 +22,7 @@ int ENB = 5;
 int in3 = 7;
 int in4 = 6;
 
-int ABS = 150;
+int ABS = 140;
 int rightDistance = 0,leftDistance = 0,middleDistance = 0;
 int THRESHOLD = 30;
 
@@ -48,8 +50,8 @@ void _mBack()
 
 void _mleft()
 {
- analogWrite(ENA,ABS);
- analogWrite(ENB,ABS);
+ analogWrite(ENA,255);
+ analogWrite(ENB,255);
  digitalWrite(in1,LOW);
  digitalWrite(in2,HIGH);
  digitalWrite(in3,HIGH);
@@ -59,8 +61,8 @@ void _mleft()
 
 void _mright()
 {
- analogWrite(ENA,ABS);
- analogWrite(ENB,ABS);
+ analogWrite(ENA,255);
+ analogWrite(ENB,255);
  digitalWrite(in1,HIGH);
  digitalWrite(in2,LOW);
  digitalWrite(in3,LOW);
