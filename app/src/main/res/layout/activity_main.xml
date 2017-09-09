@@ -110,4 +110,13 @@
         android:layout_alignStart="@+id/right"
         android:layout_alignTop="@+id/sensorCenter"
         android:text="@string/right" />
+
+    <TextView
+        android:id="@+id/botLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sensorCenter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="[Bot Output]" />
 </RelativeLayout>

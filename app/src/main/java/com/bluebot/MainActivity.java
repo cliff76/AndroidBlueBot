@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluebot.droid.ide.BlueBotIDEActivity;
@@ -35,12 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     private BluetoothSPP bluetooth;
     private Button connect;
+    private TextView botLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         connect = (Button) findViewById(R.id.connect);
+        botLog = (TextView) findViewById(R.id.botLog);
 
         findViewById(R.id.ideButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         bluetooth.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             @Override
             public void onDataReceived(byte[] data, String message) {
-                Log.d(MainActivity.this.getClass().getName(),"BLuetooth data received: " + new String(data));
+                log(new String(data));
+            }
+        });
+    }
+
+    private void log(final String msg) {
+        Log.d(MainActivity.this.getClass().getName(), "Bluetooth data received: " + msg);
+        botLog.post(new Runnable() {
+            public void run() {
+                botLog.setText(msg);
             }
         });
     }

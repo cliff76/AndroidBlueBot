@@ -162,6 +162,8 @@ void loop()
 
 void processCmd()
 {
+ int distance = Distance_test();
+ Serial.println("Distance " + distance);
  if(getstr=='f')
   {
     _mForward();
@@ -195,17 +197,23 @@ void stateChange()
     state = MANUAL;
 }
 
-void autonomous() 
+bool scanArea()
 {
     lookAhead();
     int r = lookOffRight();
     int l = lookOffLeft();
-    
-      Serial.print("offRight=");
-      Serial.print(r);
-      Serial.print(" offLeft=");
-      Serial.println(l);
-    if(middleDistance<=THRESHOLD || l<=THRESHOLD || r<=THRESHOLD)
+
+    Serial.print("offRight=");
+    Serial.print(r);
+    Serial.print(" offLeft=");
+    Serial.println(l);
+    return middleDistance<=THRESHOLD || l<=THRESHOLD || r<=THRESHOLD;
+}
+
+void autonomous() 
+{
+    bool mightCollide = scanArea();
+    if(mightCollide)
     {     
       handleCollision();
     }  
